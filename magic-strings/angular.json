@@ -1,0 +1,155 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "magic-string": {
+      "projectType": "library",
+      "root": "projects/magic-string",
+      "sourceRoot": "projects/magic-string/src",
+      "prefix": "bk",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/magic-string/tsconfig.lib.json",
+            "project": "projects/magic-string/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/magic-string/src/test.ts",
+            "tsConfig": "projects/magic-string/tsconfig.spec.json",
+            "karmaConfig": "projects/magic-string/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/magic-string/tsconfig.lib.json",
+              "projects/magic-string/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "magic-string-example": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/magic-string-example",
+      "sourceRoot": "projects/magic-string-example/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/magic-string-example",
+            "index": "projects/magic-string-example/src/index.html",
+            "main": "projects/magic-string-example/src/main.ts",
+            "polyfills": "projects/magic-string-example/src/polyfills.ts",
+            "tsConfig": "projects/magic-string-example/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/magic-string-example/src/favicon.ico",
+              "projects/magic-string-example/src/assets"
+            ],
+            "styles": [
+              "projects/magic-string-example/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/magic-string-example/src/environments/environment.ts",
+                  "with": "projects/magic-string-example/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "magic-string-example:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "magic-string-example:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "magic-string-example:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/magic-string-example/src/test.ts",
+            "polyfills": "projects/magic-string-example/src/polyfills.ts",
+            "tsConfig": "projects/magic-string-example/tsconfig.spec.json",
+            "karmaConfig": "projects/magic-string-example/karma.conf.js",
+            "assets": [
+              "projects/magic-string-example/src/favicon.ico",
+              "projects/magic-string-example/src/assets"
+            ],
+            "styles": [
+              "projects/magic-string-example/src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/magic-string-example/tsconfig.app.json",
+              "projects/magic-string-example/tsconfig.spec.json",
+              "projects/magic-string-example/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/magic-string-example/e2e/protractor.conf.js",
+            "devServerTarget": "magic-string-example:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "magic-string-example:serve:production"
+            }
+          }
+        }
+      }
+    }},
+  "defaultProject": "magic-string"
+}
